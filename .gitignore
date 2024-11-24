@@ -1,0 +1,4 @@
+.env
+test
+generated
+node_modules/
