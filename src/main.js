@@ -51,9 +51,13 @@ async function runAgent(url) {
       existingDataTestIds
     );
 
-    // Step 8: Generate test script
-    console.log("Generating test script...");
-    await generateTestScript(testSteps, url);
+    if (existingDataTestIds.length) {
+      // Step 8: Generate test script
+      console.log("Generating test script...");
+      await generateTestScript(testSteps, url);
+    } else {
+      console.log("Can not generate test, because data-testid empty...");
+    }
 
     // Step 9: Provide results and analysis report
     console.log("\ndata-testid Results:");
