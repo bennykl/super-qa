@@ -34,13 +34,13 @@ The Super QA Automation Agent is a comprehensive tool designed to automate the Q
 Run the main script to start the QA automation process:
 
 ```bash
-node agent.js
+node index.js
 ```
 
 ## Configuration
 
 - **OpenAI API Key:** Set your OpenAI API key in the `.env` file.
-- **URL:** Modify the URL in `main.js` to specify the target web page for analysis.
+- **URL:** Modify the URL in `index.js` to specify the target web page for analysis.
 
 ## Dependencies
 

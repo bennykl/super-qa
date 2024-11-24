@@ -9,34 +9,29 @@ const openai = new OpenAI({
   apiKey: openaiApiKey,
 });
 
-async function analyzeHTML(html, dataTestIds) {
+async function analyzeHTML(extractedInfo, dataTestIds) {
+  // Update function signature
   const prompt = `
-      You are a highly experienced Senior QA Engineer. Given the HTML and a list of data-testid attributes, your task is to create a detailed step-by-step test plan for this webpage. Group the test steps into separate test cases based on functionality (e.g., login, registration, password reset).
+    You are a highly experienced Senior QA Engineer. Given the extracted HTML information and a list of data-testid attributes, your task is to create a detailed step-by-step test plan for this webpage. Group the test steps into separate test cases based on functionality.
 
-      Ensure the test steps cover all important elements and core functionalities within each group. Include user interactions like filling input fields, clicking buttons, and validating expected outcomes. Provide specific data to use for inputs and expected values for validation. Clearly separate each test case with a descriptive title.
+    Extracted HTML Information:
+    \`\`\`json
+    ${extractedInfo}
+    \`\`\`
 
-      HTML:
-      \`\`\`html
-      ${html}
-      \`\`\`
+    data-testid Attributes:
+    \`\`\`json
+    ${JSON.stringify(dataTestIds, null, 2)}
+    \`\`\`
 
-      data-testid:
-      \`\`\`json
-      ${JSON.stringify(dataTestIds, null, 2)}
-      \`\`\`
+    Return the test plan in the following format:
 
-      Return the test plan in the following format:
-
-      \`\`\`
-      Test Case: [Test Case Title]
-      1. [Action] on element with data-testid="[data-testid]" (Input: "[input_value]")
-      2. [Action] on element with data-testid="[data-testid]" (Expected Outcome: "[expected_outcome]")
-      ...
-
-      Test Case: [Test Case Title]
-      1. ...
-      ...
-      \`\`\`
+    \`\`\`
+    Test Case: [Test Case Title]
+    1. [Action] on element with data-testid="[data-testid]" (Input: "[input_value]")
+    2. [Action] on element with data-testid="[data-testid]" (Expected Outcome: "[expected_outcome]")
+    ...
+    \`\`\`
   `;
 
   try {
